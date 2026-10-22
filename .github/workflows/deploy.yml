@@ -1,0 +1,20 @@
+name: Desplegar frontend ASDU
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: EPIIS/unsaac-devops-templates/.github/workflows/reusable-deploy.yml@main
+    with:
+      projectName: asdu
+      appName: frontend
+      buildContext: .
+      dockerfile: Dockerfile
+      containerPort: "80"
+      servicePort: "80"
+      ingressEnabled: true
+      ingressPath: /asdu
+      internalPath: /
+    secrets:
+      SSH_PASSWORD: ${{ secrets.EPIIS_SSH_PASSWORD }}
